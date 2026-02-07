@@ -1,0 +1,5 @@
+"""Rajasthan Helper CLI - Magic of Rajasthan in your terminal!"""
+
+__version__ = "0.1.0"
+__author__ = "Rajasthan Helper"
+__description__ = "A lightweight CLI for quick Rajasthan/India info"

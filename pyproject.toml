@@ -1,0 +1,58 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "rajasthan-helper"
+version = "0.1.0"
+description = "Rajasthan Helper CLI – Weather, festivals & travel tips from the Land of Kings"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [
+    {name = "Chetan Inaganti", email = "your.email@example.com"},
+]
+keywords = ["cli", "rajasthan", "weather", "india", "travel", "copilot", "terminal"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Utilities",
+]
+
+dependencies = [
+    "click>=8.0",
+    "rich>=13.0",
+    "requests>=2.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "black>=22.0",
+    "flake8>=4.0",
+]
+
+[project.scripts]
+rajasthan-helper = "rajasthan_helper.__main__:main"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["rajasthan_helper*"]
+exclude = ["tests*"]
+
+[tool.black]
+line-length = 88
+target-version = ["py38"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"

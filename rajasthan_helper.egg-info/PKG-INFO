@@ -1,0 +1,207 @@
+Metadata-Version: 2.4
+Name: rajasthan-helper
+Version: 0.1.0
+Summary: Rajasthan Helper CLI – Weather, festivals & travel tips from the Land of Kings
+Author-email: Chetan Inaganti <your.email@example.com>
+License: MIT
+Keywords: cli,rajasthan,weather,india,travel,copilot,terminal
+Classifier: Development Status :: 3 - Alpha
+Classifier: Environment :: Console
+Classifier: Intended Audience :: Developers
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Topic :: Utilities
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+Requires-Dist: click>=8.0
+Requires-Dist: rich>=13.0
+Requires-Dist: requests>=2.0
+Provides-Extra: dev
+Requires-Dist: pytest>=7.0; extra == "dev"
+Requires-Dist: pytest-cov>=4.0; extra == "dev"
+Requires-Dist: black>=22.0; extra == "dev"
+Requires-Dist: flake8>=4.0; extra == "dev"
+
+# 🏜️ Rajasthan Helper CLI
+
+**Discover the magic of Rajasthan in your terminal!**
+
+A lightweight, colorful Python CLI for quick Rajasthan and India information—weather, festivals, and travel tips. Built with GitHub Copilot CLI free tier.
+
+## ✨ Features
+
+- **Weather Command** (`weather`): Get current weather for Rajasthan cities using the free [wttr.in](https://wttr.in) API
+- **Festival Command** (`festival`): Discover Rajasthan festivals by month with cultural facts
+- **Travel Tips Command** (`tip`): Get curated travel tips for cities like Jaipur, Udaipur, Mumbai, Jodhpur, and Pushkar
+- **Colorful Output**: Rich panels and tables with emojis for a delightful terminal experience
+- **Error Handling**: User-friendly error messages for failed API calls or invalid inputs
+
+## 🚀 Quick Start
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/yourusername/rajasthan-helper.git
+cd rajasthan-helper
+
+# Install in development mode
+pip install -e .
+```
+
+### Dependencies
+
+```
+click>=8.0
+rich>=10.0
+requests>=2.25
+```
+
+## 📖 Usage
+
+### Get Help
+
+```bash
+rajasthan-helper --help
+```
+
+### Weather
+
+Get current weather for any Rajasthan city:
+
+```bash
+# Default: Jaipur
+rajasthan-helper weather
+
+# Specific city
+rajasthan-helper weather Udaipur
+rajasthan-helper weather Jaipur
+```
+
+### Festivals
+
+Discover Rajasthan festivals:
+
+```bash
+# Show all festivals
+rajasthan-helper festival
+
+# Show specific festival by month
+rajasthan-helper festival January
+rajasthan-helper festival March
+rajasthan-helper festival October
+```
+
+**Available Festivals:**
+- January: Makar Sankranti (🪁 Kite flying joy)
+- March: Holi (🎨 Festival of colors)
+- October: Diwali (🪔 Lights & sweets)
+- November: Pushkar Camel Fair (🐪 Sacred pilgrimage)
+- December: Winter Festivals (❄️ Music & celebrations)
+
+### Travel Tips
+
+Get travel tips for popular cities:
+
+```bash
+# Default: Jaipur
+rajasthan-helper tip
+
+# Specific city
+rajasthan-helper tip Udaipur
+rajasthan-helper tip Jodhpur
+rajasthan-helper tip Pushkar
+rajasthan-helper tip Mumbai
+```
+
+## 🛠️ Development
+
+### Set Up Development Environment
+
+```bash
+# Install with dev dependencies
+pip install -e ".[dev]"
+```
+
+### Run Tests
+
+```bash
+pytest
+pytest --cov=rajasthan_helper
+```
+
+### Format Code
+
+```bash
+black rajasthan_helper/
+```
+
+### Lint Code
+
+```bash
+flake8 rajasthan_helper/
+```
+
+## 📁 Project Structure
+
+```
+rajasthan-helper/
+├── rajasthan_helper/
+│   ├── __init__.py              # Package metadata
+│   ├── __main__.py              # CLI entry point with Click
+│   └── commands/
+│       ├── __init__.py
+│       ├── weather.py           # Weather command (wttr.in API)
+│       ├── festival.py          # Hardcoded festivals
+│       └── tip.py               # Hardcoded travel tips
+├── pyproject.toml               # Project metadata & dependencies
+├── README.md                    # This file
+└── .github/
+    └── copilot-instructions.md  # Copilot guidance
+```
+
+## 📊 Prompt Efficiency
+
+**Built with GitHub Copilot CLI free tier.**
+
+Total prompts used to build this project: **~10 prompts**
+
+- 1 prompt: Project setup and structure
+- 2 prompts: CLI framework and commands
+- 2 prompts: Weather API integration
+- 1 prompt: Festival and tips data
+- 2 prompts: Rich output formatting
+- 1 prompt: Error handling
+- 1 prompt: pyproject.toml and README
+
+## 🎨 Technologies
+
+- **Language**: Python 3.8+
+- **CLI Framework**: [Click](https://click.palletsprojects.com/)
+- **Output Formatting**: [Rich](https://rich.readthedocs.io/)
+- **HTTP Client**: [Requests](https://requests.readthedocs.io/)
+- **Weather API**: [wttr.in](https://wttr.in) (Free, no API key required)
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the LICENSE file for details.
+
+## 🙏 Acknowledgments
+
+- [wttr.in](https://wttr.in) - Free weather API
+- [Click](https://click.palletsprojects.com/) - Python CLI framework
+- [Rich](https://rich.readthedocs.io/) - Rich text and formatting
+- GitHub Copilot CLI for efficient development
+
+---
+
+**Built with 🏜️ love for Rajasthan!**
