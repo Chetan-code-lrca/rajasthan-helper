@@ -1,3 +1,5 @@
+[Download Full Overview PDF](Rajasthan-Helper-CLI-Final.pdf)
+
 # 🏜️ Rajasthan Helper CLI – Built in ~20 Prompts on Free GitHub Copilot CLI
 
 **Discover the Land of Kings in your terminal!** 🕌
