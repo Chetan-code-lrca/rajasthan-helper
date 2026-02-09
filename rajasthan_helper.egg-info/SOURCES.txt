@@ -2,6 +2,7 @@ README.md
 pyproject.toml
 rajasthan_helper/__init__.py
 rajasthan_helper/__main__.py
+rajasthan_helper/config.py
 rajasthan_helper/create_copilot_instructions_final.py
 rajasthan_helper/create_dirs.py
 rajasthan_helper/create_github_copilot_instructions.py
@@ -27,6 +28,12 @@ rajasthan_helper.egg-info/entry_points.txt
 rajasthan_helper.egg-info/requires.txt
 rajasthan_helper.egg-info/top_level.txt
 rajasthan_helper/commands/__init__.py
+rajasthan_helper/commands/config.py
+rajasthan_helper/commands/facts.py
 rajasthan_helper/commands/festival.py
+rajasthan_helper/commands/interactive.py
+rajasthan_helper/commands/main__.py
 rajasthan_helper/commands/tip.py
 rajasthan_helper/commands/weather.py
+rajasthan_helper/data/__init__.py
+rajasthan_helper/data/facts.py

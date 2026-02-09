@@ -42,7 +42,7 @@ dev = [
 ]
 
 [project.scripts]
-rajasthan-helper = "rajasthan_helper.__main__:main"
+rajasthan-helper = "rajasthan_helper.__main__:cli"
 
 [tool.setuptools.packages.find]
 where = ["."]

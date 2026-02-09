@@ -27,11 +27,13 @@ Requires-Dist: pytest-cov>=4.0; extra == "dev"
 Requires-Dist: black>=22.0; extra == "dev"
 Requires-Dist: flake8>=4.0; extra == "dev"
 
-# 🏜️ Rajasthan Helper CLI
+# 🏜️ Rajasthan Helper CLI – Built in ~20 Prompts on Free GitHub Copilot CLI
 
 **Discover the Land of Kings in your terminal!** 🕌
 
 A lightweight, colorful Python CLI tool for quick information about Rajasthan and India: real-time weather, cultural festivals, and travel tips. Built with Click and Rich for a beautiful terminal experience.
+
+Built entirely on the **free tier of GitHub Copilot CLI** (~20 prompts).
 
 ## ✨ Features
 
@@ -77,23 +79,28 @@ This installs the package in development mode with all dependencies:
 ## 🚀 Quick Start
 
 ```bash
+# Show version (with build info)
+rajasthan-helper --version
+# Output: rajasthan-helper 0.1.0 - Built with free GitHub Copilot CLI by Chetan Inaganti 🏜️
+
 # Show help
 rajasthan-helper --help
 
-# Get weather for a city
-rajasthan-helper weather jaipur
-rajasthan-helper weather mumbai
+# Get weather for a city (with color-coded output)
+rajasthan-helper weather jaipur      # ☀️ Hot (red)
+rajasthan-helper weather srinagar    # ❄️ Cold (cyan)
+rajasthan-helper weather delhi       # 🌧️ Moderate (yellow)
 
-# Explore festivals
-rajasthan-helper festival march          # Show March festivals
-rajasthan-helper festival                # Show all 12 months
+# Get festival info for a month
+rajasthan-helper festival march      # Gangaur festival 👩
+rajasthan-helper festival october    # Dussehra 🏹
+rajasthan-helper festival november   # Pushkar Fair 🐪
 
-# Get travel tips
+# Get travel tips for a city
+rajasthan-helper tip jaipur
 rajasthan-helper tip udaipur
-rajasthan-helper tip jaisalmer
-
-# Check version
-rajasthan-helper --version
+rajasthan-helper tip agra
+rajasthan-helper tip mumbai
 ```
 
 ## 📖 Usage Examples
