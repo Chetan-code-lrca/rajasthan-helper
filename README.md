@@ -1,94 +1,107 @@
 # Rajasthan Helper CLI
 
-A small command-line utility for exploring Rajasthan and other Indian cities from the terminal.
+Rajasthan Helper is a small terminal app for checking weather, looking up a festival entry by month, and getting travel tips for a handful of Indian cities.
 
-It currently provides three commands:
+It is built with Python, Click, Rich, and Requests. There is no database, login, or application API key.
 
-- `weather` — fetch current weather from [wttr.in](https://wttr.in/)
-- `festival` — show a month-based festival entry
-- `tip` — show practical travel tips for supported cities
-
-The project is intentionally lightweight and works without a database or account system.
-
-## Features
+## What you can do
 
 ### Weather
 
-Fetches current conditions for a city and displays:
+Get the current weather for a city:
 
-- temperature
-- feels-like temperature
-- condition
-- humidity
-- wind speed
+```bash
+rajasthan-helper weather Jaipur
+```
 
-The client uses a network timeout and handles common request, parsing, and timeout failures. A small sample response is shown when the request times out.
+The command shows temperature, feels-like temperature, condition, humidity, and wind speed. It gets the data from `wttr.in` and uses a 10-second request timeout. If the request times out, the CLI shows sample fallback data instead of stopping with an exception. fileciteturn740file0
 
 ### Festivals
 
-The festival command uses a built-in month-to-entry mapping, so it works offline and does not need an external service.
+Look up the festival entry assigned to a month:
 
-```text
-january   -> Makar Sankranti
-february  -> Holi
-march     -> Gangaur
-...
-december  -> Diwali
+```bash
+rajasthan-helper festival March
+rajasthan-helper festival November
 ```
 
-The data is illustrative rather than a complete Rajasthan festival calendar.
+The festival list is stored directly in the application, so this command works without an internet connection. The entries are a simple month-based list, not a complete calendar of Rajasthan festivals. fileciteturn741file0
 
 ### Travel tips
 
-The `tip` command contains curated tips for 10 cities:
+Get the built-in tips for a supported city:
 
-`Jaipur` · `Udaipur` · `Delhi` · `Jodhpur` · `Jaisalmer` · `Pushkar` · `Ajmer` · `Bikaner` · `Mumbai` · `Agra`
+```bash
+rajasthan-helper tip Jaipur
+rajasthan-helper tip Udaipur
+rajasthan-helper tip Jaisalmer
+```
 
-## Installation
+The current data covers:
 
-### Requirements
+```text
+Jaipur
+Udaipur
+Delhi
+Jodhpur
+Jaisalmer
+Pushkar
+Ajmer
+Bikaner
+Mumbai
+Agra
+```
 
-- Python 3.8+
+The tips are static content stored in `rajasthan_helper/commands/tip.py`. fileciteturn742file0
+
+## Requirements
+
+- Python 3.8 or newer
 - pip
 
-### Install from source
+The package metadata declares Python `>=3.8` and the following runtime dependencies: Click, Rich, and Requests. fileciteturn764file0
+
+## Install
+
+Clone the repository and install it in editable mode:
 
 ```bash
 git clone https://github.com/Chetan-code-lrca/rajasthan-helper.git
 cd rajasthan-helper
-pip install -e .
+python -m pip install -e .
 ```
 
-### Run
+After installation, the `rajasthan-helper` command is available in the active Python environment. The entry point is defined in `pyproject.toml`. fileciteturn764file0
+
+Check the command list with:
 
 ```bash
 rajasthan-helper --help
-rajasthan-helper weather Jaipur
-rajasthan-helper festival March
-rajasthan-helper tip Udaipur
 ```
 
-## Development
+## Development setup
 
-Install development dependencies:
+Install the development dependencies:
 
 ```bash
-pip install -e '.[dev]'
+python -m pip install -e '.[dev]'
 ```
 
-Run tests:
+The project defines optional tooling for pytest, pytest-cov, Black, and Flake8. fileciteturn764file0
+
+Run the available tests with:
 
 ```bash
 pytest
 ```
 
-Format with Black:
+Format the code with:
 
 ```bash
 black .
 ```
 
-Run Flake8:
+Run Flake8 with:
 
 ```bash
 flake8 .
@@ -106,21 +119,24 @@ rajasthan-helper/
 │       ├── festival.py
 │       ├── tip.py
 │       └── weather.py
-├── tests/
 ├── pyproject.toml
 └── README.md
 ```
 
+`__main__.py` wires the three Click commands into the `rajasthan-helper` executable. fileciteturn749file0
+
 ## Data and privacy
 
-This project does not require user accounts, passwords, or application API keys.
+The CLI does not have user accounts or local profile storage.
 
-The weather command sends the city name entered by the user to wttr.in to obtain weather data. No user profile or location history is stored by this application.
+For the weather command, the city name entered on the command line is sent to `wttr.in` to retrieve weather information. Other commands use data bundled with the application. fileciteturn740file0
 
-Do not add secrets, credentials, private URLs, personal files, or local machine paths to the repository. Keep local configuration outside version control.
+No API key is needed for the current version.
+
+## Limitations
+
+The festival information is a small month-to-festival mapping, and the travel section is a fixed collection of tips for ten cities. The weather result depends on the availability of `wttr.in`.
 
 ## License
 
-MIT License.
-
-See [LICENSE](LICENSE) for the full text.
+MIT
