@@ -14,7 +14,7 @@ Get the current weather for a city:
 rajasthan-helper weather Jaipur
 ```
 
-The command shows temperature, feels-like temperature, condition, humidity, and wind speed. It gets the data from `wttr.in` and uses a 10-second request timeout. If the request times out, the CLI shows sample fallback data instead of stopping with an exception. fileciteturn740file0
+The command shows temperature, feels-like temperature, condition, humidity, and wind speed. It gets the data from `wttr.in` and uses a 10-second request timeout. If the request times out, the CLI shows sample fallback data instead of stopping with an exception.
 
 ### Festivals
 
@@ -25,7 +25,7 @@ rajasthan-helper festival March
 rajasthan-helper festival November
 ```
 
-The festival list is stored directly in the application, so this command works without an internet connection. The entries are a simple month-based list, not a complete calendar of Rajasthan festivals. fileciteturn741file0
+The festival list is stored directly in the application, so this command works without an internet connection. The entries are a simple month-based list, not a complete calendar of Rajasthan festivals.
 
 ### Travel tips
 
@@ -52,14 +52,14 @@ Mumbai
 Agra
 ```
 
-The tips are static content stored in `rajasthan_helper/commands/tip.py`. fileciteturn742file0
+The tips are static content stored in `rajasthan_helper/commands/tip.py`.
 
 ## Requirements
 
 - Python 3.8 or newer
 - pip
 
-The package metadata declares Python `>=3.8` and the following runtime dependencies: Click, Rich, and Requests. fileciteturn764file0
+Runtime dependencies are Click, Rich, and Requests. Development extras are provided for pytest, pytest-cov, Black, and Flake8.
 
 ## Install
 
@@ -71,13 +71,24 @@ cd rajasthan-helper
 python -m pip install -e .
 ```
 
-After installation, the `rajasthan-helper` command is available in the active Python environment. The entry point is defined in `pyproject.toml`. fileciteturn764file0
-
 Check the command list with:
 
 ```bash
 rajasthan-helper --help
 ```
+
+## Commands
+
+```bash
+rajasthan-helper weather Jaipur
+rajasthan-helper weather Udaipur
+rajasthan-helper festival March
+rajasthan-helper festival November
+rajasthan-helper tip Jodhpur
+rajasthan-helper tip Pushkar
+```
+
+The command-line entry point is defined in `pyproject.toml`.
 
 ## Development setup
 
@@ -87,15 +98,13 @@ Install the development dependencies:
 python -m pip install -e '.[dev]'
 ```
 
-The project defines optional tooling for pytest, pytest-cov, Black, and Flake8. fileciteturn764file0
-
-Run the available tests with:
+Run the test suite with:
 
 ```bash
 pytest
 ```
 
-Format the code with:
+Format with Black:
 
 ```bash
 black .
@@ -123,19 +132,19 @@ rajasthan-helper/
 └── README.md
 ```
 
-`__main__.py` wires the three Click commands into the `rajasthan-helper` executable. fileciteturn749file0
+`__main__.py` connects the three Click commands to the `rajasthan-helper` executable.
 
 ## Data and privacy
 
-The CLI does not have user accounts or local profile storage.
+The application does not have user accounts or profile storage.
 
-For the weather command, the city name entered on the command line is sent to `wttr.in` to retrieve weather information. Other commands use data bundled with the application. fileciteturn740file0
+For the weather command, the city name entered on the command line is sent to `wttr.in` to retrieve weather information. The festival and travel-tip commands use data bundled with the application.
 
-No API key is needed for the current version.
+No API key is required by the current version.
 
 ## Limitations
 
-The festival information is a small month-to-festival mapping, and the travel section is a fixed collection of tips for ten cities. The weather result depends on the availability of `wttr.in`.
+The festival information is a simple month-to-festival mapping, not a complete event calendar. The travel section contains a fixed set of tips for ten cities. Weather results depend on the availability of `wttr.in`.
 
 ## License
 
