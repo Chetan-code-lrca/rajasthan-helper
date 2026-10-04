@@ -1,6 +1,6 @@
 # Rajasthan Helper CLI
 
-Rajasthan Helper is a small terminal app for checking weather, looking up a festival entry by month, and getting travel tips for a handful of Indian cities.
+Rajasthan Helper is a small terminal app for checking weather, looking up a festival entry by month, getting travel tips for a handful of Indian cities, and creating a transparent budget split for a trip.
 
 It is built with Python, Click, Rich, and Requests. There is no database, login, or application API key.
 
@@ -16,12 +16,12 @@ rajasthan-helper weather Jaipur
 
 The command shows temperature, feels-like temperature, condition, humidity, and wind speed. It gets the data from `wttr.in` and uses a 10-second request timeout. If the request times out, the CLI shows sample fallback data instead of stopping with an exception.
 
-### Festivals
+### Trip budget\n\nCreate an illustrative allocation from your own total budget and trip length (INR):\n\n```bash\nrajasthan-helper budget 8000 4\n```\n\nThe command divides the entered amount into suggested shares for stay, food, local transport, activities, and an emergency buffer. These are planning proportions, not current local prices or a cost guarantee. It works offline.\n\n### Festivals
 
 Look up the festival entry assigned to a month:
 
 ```bash
-rajasthan-helper festival March
+rajasthan-helper budget 8000 4\nrajasthan-helper festival March
 rajasthan-helper festival November
 ```
 
@@ -132,7 +132,7 @@ rajasthan-helper/
 └── README.md
 ```
 
-`__main__.py` connects the three Click commands to the `rajasthan-helper` executable.
+`__main__.py` connects the Click commands to the `rajasthan-helper` executable.
 
 ## Data and privacy
 
