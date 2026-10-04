@@ -71,3 +71,16 @@ def test_weather_timeout_does_not_claim_sample_is_live(monkeypatch):
     result = CliRunner().invoke(cli, ["weather", "Jaipur"])
     assert result.exit_code == 0
     assert "sample data" in result.output.lower()
+
+
+def test_budget_splits_total_and_discloses_estimate():
+    result = CliRunner().invoke(cli, ["budget", "10000", "4"])
+    assert result.exit_code == 0
+    assert "₹10,000" in result.output
+    assert "₹2,500/day" in result.output
+    assert "not live prices" in result.output
+
+
+def test_budget_rejects_zero_days():
+    result = CliRunner().invoke(cli, ["budget", "5000", "0"])
+    assert result.exit_code != 0
