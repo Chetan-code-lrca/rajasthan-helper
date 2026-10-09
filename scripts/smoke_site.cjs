@@ -37,6 +37,8 @@ async function main() {
   await pause(30);
 
   assert.equal(d.querySelectorAll('#destinations .place').length, 12, 'destination cards should render');
+  assert.match(d.querySelector('.source-card').textContent, /Official links last checked: 09 Oct 2026/, 'source card should show a visible last-checked date');
+  assert.equal(Array.from(d.querySelectorAll('.source-card a')).some(link => link.href === 'https://www.tourism.rajasthan.gov.in/tourist-destinations.html'), true, 'source card should include the official destination directory');
   assert.equal(registeredWorkerURL, './sw.js', 'offline service worker should register');
   d.querySelector('[data-filter="Heritage"]').click();
   assert.equal(d.querySelectorAll('#destinations .place').length, 7, 'heritage filter should narrow destination list');
