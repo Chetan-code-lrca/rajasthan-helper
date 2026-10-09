@@ -79,13 +79,41 @@ rajasthan-helper --help
 
 ## Commands
 
+The CLI currently exposes three commands: `weather`, `festival`, and `tip`.
+
+### Weather
+
 ```bash
 rajasthan-helper weather Jaipur
 rajasthan-helper weather Udaipur
+```
+
+Weather requests depend on `wttr.in`, so network access is required. If the service is unavailable or a request times out, the command uses its documented fallback behavior; treat fallback values as examples, not live observations.
+
+### Festivals
+
+```bash
 rajasthan-helper festival March
 rajasthan-helper festival November
+```
+
+This is a bundled month-to-entry lookup, not a date-specific or exhaustive festival calendar. Check official event sources before planning around a festival.
+
+### Travel tips
+
+```bash
+rajasthan-helper tip Jaipur
 rajasthan-helper tip Jodhpur
-rajasthan-helper tip Pushkar
+rajasthan-helper tip Jaisalmer
+```
+
+Supported cities are Jaipur, Udaipur, Delhi, Jodhpur, Jaisalmer, Pushkar, Ajmer, Bikaner, Mumbai, and Agra. An unsupported city displays the available choices.
+
+Use the root help to see the commands available in the installed version:
+
+```bash
+rajasthan-helper --help
+rajasthan-helper --version
 ```
 
 The command-line entry point is defined in `pyproject.toml`.
