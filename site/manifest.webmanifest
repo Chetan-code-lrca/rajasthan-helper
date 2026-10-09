@@ -1,0 +1,13 @@
+{
+  "name": "Rajasthan Routes",
+  "short_name": "Rajasthan Routes",
+  "description": "A lightweight Rajasthan trip planner.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f5efe3",
+  "theme_color": "#a64d2e",
+  "icons": [
+    {"src":"./icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}
+  ]
+}

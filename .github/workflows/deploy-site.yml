@@ -1,0 +1,95 @@
+name: Rajasthan Routes CI
+on:
+  push:
+    branches:
+      - work/rajasthan-travel-companion
+    paths:
+      - "site/**"
+      - "index.html"
+      - ".nojekyll"
+      - "scripts/**"
+      - ".github/workflows/deploy-site.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rajasthan-routes-validation
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Validate required site files
+        run: |
+          test -s index.html
+          test -f .nojekyll
+          test -s site/index.html
+          test -s site/404.html
+          test -s site/manifest.webmanifest
+          test -s site/icon.svg
+          test -s site/sw.js
+          test -s site/itinerary.css
+          test -s site/itinerary.js
+          test -s site/trip-intelligence.css
+          test -s site/trip-intelligence.js
+          grep -q "<title>Rajasthan Routes" site/index.html
+          grep -q 'id="destinations"' site/index.html
+          grep -q 'id="route"' site/index.html
+          grep -q 'serviceWorker.register' site/index.html
+      - name: Run static-site validator
+        run: python scripts/validate_site.py
+      - name: Install DOM test dependency
+        run: npm install --no-save --no-package-lock jsdom@26.1.0 playwright@1.55.0
+      - name: Install Chromium for browser tests
+        run: npx playwright install --with-deps chromium
+      - name: Start local static servers
+        run: |
+          python -m http.server 4173 --directory site > /tmp/rajasthan-routes-http.log 2>&1 &
+          echo $! > /tmp/rajasthan-routes-http.pid
+          python -m http.server 4174 --directory . > /tmp/rajasthan-routes-root.log 2>&1 &
+          echo $! > /tmp/rajasthan-routes-root.pid
+          for attempt in {1..20}; do
+            if curl -fsS http://127.0.0.1:4173/ >/dev/null && curl -fsS http://127.0.0.1:4174/ >/dev/null; then exit 0; fi
+            sleep 1
+          done
+          cat /tmp/rajasthan-routes-http.log /tmp/rajasthan-routes-root.log
+          exit 1
+      - name: Run interactive smoke tests
+        run: node scripts/smoke_site.cjs
+      - name: Run Chromium desktop, mobile and offline tests
+        run: node scripts/browser_site.cjs
+      - name: Verify the public Pages entry point
+        shell: bash
+        run: |
+          set -euo pipefail
+          base="https://chetan-code-lrca.github.io/rajasthan-helper"
+          app_url=""
+          root_file=""
+          for attempt in {1..12}; do
+            root_file="$(curl -fsSL "$base/" || true)"
+            if grep -q 'window.location.replace(target)' <<< "$root_file"; then
+              candidate="$(curl -fsSL "$base/site/" || true)"
+              if grep -q '<title>Rajasthan Routes — Travel Companion</title>' <<< "$candidate"; then
+                app_url="$base/site"
+                break
+              fi
+            fi
+            sleep 5
+          done
+          if [[ -z "$app_url" ]]; then
+            echo "FAIL: public Pages root is showing neither the planner nor its root-to-site redirect."
+            printf '%s\n' "${root_file:-No HTML response}"
+            exit 1
+          fi
+          page="$(curl -fsSL "$app_url/")"
+          grep -q 'id="planner"' <<< "$page"
+          for asset in manifest.webmanifest icon.svg sw.js itinerary.js trip-intelligence.js; do
+            curl -fsSL "$app_url/$asset" >/dev/null
+          done
+          echo "PASS: public Pages root forwards to the travel planner at $app_url"
+          echo "PASS: planner markup, manifest, icon, service worker and scripts are reachable"
