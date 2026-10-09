@@ -29,8 +29,9 @@ This is a planning tool, not a booking engine or live travel-data service. Budge
 
 ## Research basis
 
-The planning guidance was reviewed against official Rajasthan sources on 8 October 2026:
+The official reference links were checked on 9 October 2026. This is a link review, not confirmation of live prices, opening hours or event schedules:
 
+- Rajasthan Tourism — Tourist Destinations: https://www.tourism.rajasthan.gov.in/tourist-destinations.html
 - Rajasthan Tourism — Best Time to Visit: https://www.tourism.rajasthan.gov.in/best-time-to-visit.html
 - Rajasthan Tourism — Tourist Destinations: https://www.tourism.rajasthan.gov.in/tourist-destinations.html
 - Rajasthan Tourism — Jaipur: https://www.tourism.rajasthan.gov.in/jaipur.html
