@@ -125,7 +125,7 @@ for key in ('name', 'short_name', 'start_url', 'scope', 'icons'):
     if key not in manifest:
         fail('manifest field missing: ' + key)
 
-required_features = ('data-filter', 'data-add', 'data-remove', 'data-up', 'serviceWorker.register', 'navigator.clipboard', 'itinerary.js', 'trip-intelligence.js', 'rajasthan-trip-backup.json', 'importDraftFile', 'syncTripDates', 'startDate', 'endDate', 'type="date"', 'data-nights', 'nightsByStop')
+required_features = ('data-filter', 'data-add', 'data-remove', 'data-up', 'serviceWorker.register', 'navigator.clipboard', 'itinerary.js', 'trip-intelligence.js', 'rajasthan-trip-backup.json', 'importDraftFile', 'syncTripDates', 'startDate', 'endDate', 'type="date"', 'data-nights', 'nightsByStop', 'Official links last checked: 09 Oct 2026', 'https://www.tourism.rajasthan.gov.in/tourist-destinations.html')
 for feature in required_features:
     if feature not in source:
         fail('expected feature hook is missing from index.html: ' + feature)
