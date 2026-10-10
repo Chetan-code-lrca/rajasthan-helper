@@ -1,4 +1,4 @@
-const CACHE="rajasthan-routes-v12";
+const CACHE="rajasthan-routes-v13";
 const ASSETS=["./","./index.html","./404.html","./manifest.webmanifest","./icon.svg","./trip-intelligence.css","./trip-intelligence.js","./itinerary.css","./itinerary.js"];
 self.addEventListener("install",event=>{
   event.waitUntil(caches.open(CACHE).then(cache=>cache.addAll(ASSETS)).then(()=>self.skipWaiting()));
