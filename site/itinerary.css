@@ -2,3 +2,10 @@
 .date-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.date-notice{font-size:.82rem;line-height:1.45;color:var(--muted);background:#f8f0e4;border-left:3px solid var(--line);border-radius:8px;padding:10px 12px;margin:8px 0 14px}.date-notice[data-state=valid]{border-left-color:var(--sage)}.date-notice[data-state=warning],.date-notice[data-state=error]{border-left-color:var(--accent);color:var(--accent-dark)}.day-tag span{display:block;margin-top:5px;font-size:.69rem;font-weight:650;letter-spacing:0;text-transform:none;color:var(--muted);white-space:nowrap}.day-tag{min-width:65px}@media(max-width:620px){.date-grid{grid-template-columns:1fr;gap:0}.day-tag span{white-space:normal}}
 
 .route li{gap:10px;align-items:center}.route-city{display:flex;flex-direction:column;gap:6px;min-width:0}.night-control{display:inline-flex;align-items:center;gap:7px;font-size:.76rem;color:var(--muted);font-weight:700}.night-control input{width:66px;min-height:34px;padding:5px 7px;border:1px solid var(--line);border-radius:8px;background:#fffdf8;color:var(--ink);font:inherit;font-size:.88rem}.route-actions{display:flex;align-items:center;gap:5px;flex-shrink:0}.route-actions button{min-height:34px}.route li strong{overflow-wrap:anywhere}@media(max-width:440px){.route li{align-items:flex-start}.route-actions{padding-top:2px}.night-control input{width:58px}}
+
+
+/* Keep keyboard focus visible across buttons, links and form controls. */
+:where(a,button,input,select,textarea,[tabindex]):focus-visible{
+  outline:3px solid #24221e;
+  outline-offset:3px;
+}
