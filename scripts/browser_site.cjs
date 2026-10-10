@@ -23,6 +23,13 @@ async function main() {
     const response = await page.goto(APP_URL, { waitUntil: 'networkidle' });
     assert.ok(response && response.ok(), 'app document should respond successfully');
     assert.equal(await page.title(), 'Rajasthan Routes — Travel Companion');
+    await page.keyboard.press('Tab');
+    const keyboardFocus = await page.evaluate(() => {
+      const style = getComputedStyle(document.activeElement);
+      return { tag: document.activeElement.tagName, outlineStyle: style.outlineStyle, outlineWidth: style.outlineWidth };
+    });
+    assert.equal(keyboardFocus.outlineStyle, 'solid', 'first keyboard focus should have a visible outline');
+    assert.equal(keyboardFocus.outlineWidth, '3px', 'keyboard focus outline should be at least 3px wide');
     assert.equal(await page.locator('#destinations .place').count(), 12, 'all destination cards render');
     assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), 'desktop layout should not overflow horizontally');
 
