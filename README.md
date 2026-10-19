@@ -88,7 +88,7 @@ rajasthan-helper weather Jaipur
 rajasthan-helper weather Udaipur
 ```
 
-Weather requests depend on `wttr.in`, so network access is required. If the service is unavailable or a request times out, the command uses its documented fallback behavior; treat fallback values as examples, not live observations.
+Weather requests depend on `wttr.in`, so network access is required. If a request times out, the command shows sample fallback data. Other request failures are shown as errors without sample weather values. Treat any fallback values as examples, not live observations.
 
 ### Festivals
 
