@@ -31,7 +31,6 @@ The command divides the entered amount into suggested shares for stay, food, loc
 Look up the festival entry assigned to a month:
 
 ```bash
-rajasthan-helper budget 8000 4
 rajasthan-helper festival March
 rajasthan-helper festival November
 ```
@@ -131,14 +130,19 @@ flake8 .
 
 ```text
 rajasthan-helper/
+├── .github/workflows/ci.yml
 ├── rajasthan_helper/
 │   ├── __init__.py
 │   ├── __main__.py
 │   └── commands/
 │       ├── __init__.py
+│       ├── budget.py
 │       ├── festival.py
 │       ├── tip.py
 │       └── weather.py
+├── tests/
+│   └── test_cli.py
+├── .gitignore
 ├── pyproject.toml
 └── README.md
 ```
