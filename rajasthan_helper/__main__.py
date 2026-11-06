@@ -6,6 +6,7 @@ from rich.console import Console
 from rajasthan_helper.commands.weather import weather
 from rajasthan_helper.commands.festival import festival
 from rajasthan_helper.commands.tip import tip
+from rajasthan_helper.commands.budget import budget
 
 console = Console()
 
@@ -28,6 +29,7 @@ def cli():
 cli.add_command(weather)
 cli.add_command(festival)
 cli.add_command(tip)
+cli.add_command(budget)
 
 
 def main():
