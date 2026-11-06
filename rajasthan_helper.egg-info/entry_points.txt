@@ -1,2 +1,0 @@
-[console_scripts]
-rajasthan-helper = rajasthan_helper.__main__:cli
