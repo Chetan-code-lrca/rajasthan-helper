@@ -101,10 +101,12 @@ python -m pip install -e '.[dev]'
 Run the test suite with:
 
 ```bash
-pytest
+python -m pytest -q
 ```
 
-Format with Black:
+The GitHub Actions workflow runs the CLI tests on Python 3.8, 3.11, and 3.13 and verifies that the installed `rajasthan-helper` command is available.
+
+Format the Python package and tests with Black:
 
 ```bash
 black .
@@ -128,6 +130,12 @@ rajasthan-helper/
 │       ├── festival.py
 │       ├── tip.py
 │       └── weather.py
+├── tests/
+│   └── test_cli.py
+├── .github/
+│   └── workflows/
+│       └── ci.yml
+├── .gitignore
 ├── pyproject.toml
 └── README.md
 ```
