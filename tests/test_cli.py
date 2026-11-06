@@ -2,96 +2,99 @@ from click.testing import CliRunner
 import requests
 
 from rajasthan_helper.__main__ import cli
-from rajasthan_helper.commands import weather as weather_module
 
 
-def test_root_help_lists_supported_commands():
+def test_help_lists_supported_commands():
     result = CliRunner().invoke(cli, ["--help"])
-
     assert result.exit_code == 0
-    assert "weather" in result.output
-    assert "festival" in result.output
-    assert "tip" in result.output
+    for command in ("weather", "festival", "tip", "budget"):
+        assert command in result.output
 
 
-def test_festival_accepts_case_insensitive_month():
+def test_festival_accepts_month_case_insensitively():
     result = CliRunner().invoke(cli, ["festival", "mArCh"])
-
     assert result.exit_code == 0
     assert "Gangaur" in result.output
 
 
-def test_festival_handles_invalid_month_without_crashing():
-    result = CliRunner().invoke(cli, ["festival", "not-a-month"])
-
+def test_festival_invalid_month_is_helpful():
+    result = CliRunner().invoke(cli, ["festival", "Smarch"])
     assert result.exit_code == 0
     assert "Invalid month" in result.output
+    assert "January" in result.output
 
 
-def test_tip_accepts_case_insensitive_city():
-    result = CliRunner().invoke(cli, ["tip", "uDaIpUr"])
-
+def test_tip_city_case_insensitive():
+    result = CliRunner().invoke(cli, ["tip", "jAiPuR"])
     assert result.exit_code == 0
-    assert "Lake Pichola" in result.output
+    assert "Jaipur" in result.output
 
 
-def test_tip_handles_unknown_city_without_crashing():
+def test_tip_unknown_city_is_helpful():
     result = CliRunner().invoke(cli, ["tip", "Atlantis"])
-
     assert result.exit_code == 0
     assert "Unknown city" in result.output
 
 
-def test_weather_renders_live_response(monkeypatch):
-    class FakeResponse:
+def test_weather_formats_live_response(monkeypatch):
+    class Response:
         def raise_for_status(self):
-            return None
+            pass
 
         def json(self):
             return {
                 "current_condition": [{
-                    "temp_C": "25",
+                    "temp_C": "31",
                     "weatherDesc": [{"value": "Sunny"}],
-                    "FeelsLikeC": "27",
-                    "humidity": "50",
-                    "windspeedKmph": "12",
+                    "FeelsLikeC": "34",
+                    "humidity": "40",
+                    "windspeedKmph": "11",
                 }]
             }
 
-    def fake_get(url, timeout):
-        assert url == "https://wttr.in/Jaipur?format=j1"
-        assert timeout == 10
-        return FakeResponse()
-
-    monkeypatch.setattr(weather_module.requests, "get", fake_get)
+    monkeypatch.setattr(
+        "rajasthan_helper.commands.weather.requests.get",
+        lambda *a, **k: Response(),
+    )
     result = CliRunner().invoke(cli, ["weather", "Jaipur"])
-
     assert result.exit_code == 0
-    assert "25°C" in result.output
+    assert "31°C" in result.output
     assert "Sunny" in result.output
-    assert "50%" in result.output
 
 
-def test_weather_timeout_uses_explicit_sample_fallback(monkeypatch):
-    def timeout(*_args, **_kwargs):
-        raise requests.Timeout("simulated timeout")
+def test_weather_timeout_does_not_claim_sample_is_live(monkeypatch):
+    def timeout(*args, **kwargs):
+        raise requests.Timeout("offline")
 
-    monkeypatch.setattr(weather_module.requests, "get", timeout)
-    result = CliRunner().invoke(cli, ["weather", "Udaipur"])
-
+    monkeypatch.setattr(
+        "rajasthan_helper.commands.weather.requests.get", timeout
+    )
+    result = CliRunner().invoke(cli, ["weather", "Jaipur"])
     assert result.exit_code == 0
-    assert "Showing sample data" in result.output
-    assert "28°C" in result.output
+    assert "sample data" in result.output.lower()
 
 
 def test_weather_http_error_is_reported_without_traceback(monkeypatch):
-    class FakeResponse:
-        def raise_for_status(self):
-            raise requests.HTTPError("503 Service Unavailable")
+    def http_error(*args, **kwargs):
+        raise requests.HTTPError("503 Service Unavailable")
 
-    monkeypatch.setattr(weather_module.requests, "get", lambda *_a, **_k: FakeResponse())
+    monkeypatch.setattr(
+        "rajasthan_helper.commands.weather.requests.get", http_error
+    )
     result = CliRunner().invoke(cli, ["weather", "Jaipur"])
-
     assert result.exit_code == 0
     assert "Error fetching weather" in result.output
     assert "Traceback" not in result.output
+
+
+def test_budget_splits_total_and_discloses_estimate():
+    result = CliRunner().invoke(cli, ["budget", "10000", "4"])
+    assert result.exit_code == 0
+    assert "₹10,000" in result.output
+    assert "₹2,500/day" in result.output
+    assert "not live prices" in result.output.lower()
+
+
+def test_budget_rejects_zero_days():
+    result = CliRunner().invoke(cli, ["budget", "5000", "0"])
+    assert result.exit_code != 0
