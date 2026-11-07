@@ -14,7 +14,7 @@ Get the current weather for a city:
 rajasthan-helper weather Jaipur
 ```
 
-The command shows temperature, feels-like temperature, condition, humidity, and wind speed. It gets the data from `wttr.in` and uses a 10-second request timeout. If the request times out, the CLI shows sample fallback data instead of stopping with an exception.
+The command shows temperature, feels-like temperature, condition, humidity, and wind speed. It gets the data from `wttr.in` and uses a 10-second request timeout. If the request times out or the provider returns invalid data, the command exits with an actionable error; it never substitutes fabricated sample weather for live conditions.
 
 ### Festivals
 
@@ -101,8 +101,10 @@ python -m pip install -e '.[dev]'
 Run the test suite with:
 
 ```bash
-pytest
+python -m pytest -q
 ```
+
+The GitHub Actions workflow runs the tests on pushes and pull requests using Python 3.12, and checks that each CLI command exposes its help text.
 
 Format with Black:
 
@@ -144,7 +146,7 @@ No API key is required by the current version.
 
 ## Limitations
 
-The festival information is a simple month-to-festival mapping, not a complete event calendar. The travel section contains a fixed set of tips for ten cities. Weather results depend on the availability of `wttr.in`.
+The festival information is a simple month-to-festival mapping, not a complete event calendar. The travel section contains a fixed set of tips for ten cities. Weather results depend on the availability and response quality of `wttr.in`. The command does not cache forecasts or fabricate fallback observations; a provider outage is reported as an error.
 
 ## License
 

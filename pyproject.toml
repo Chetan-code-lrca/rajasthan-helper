@@ -10,7 +10,7 @@ readme = "README.md"
 requires-python = ">=3.8"
 license = {text = "MIT"}
 authors = [
-    {name = "Chetan Inaganti", email = "your.email@example.com"},
+    {name = "Chetan Inaganti"},
 ]
 keywords = ["cli", "rajasthan", "weather", "india", "travel", "copilot", "terminal"]
 classifiers = [
